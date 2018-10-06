@@ -1,5 +1,6 @@
 #Loading the rvest package
 library('rvest')
+options(warn = -1) 
 
 # Scrapes lyrics of a specified band and song to HTML
 scrapeLyrics <- function(band, song) {
@@ -25,7 +26,6 @@ scrapeLyrics <- function(band, song) {
     }
     webpage <- searchScrape
   }
-  
   # Gets <div class="lyricbox"> data
   lyrics <- returnLyrics(webpage)
   
@@ -40,8 +40,11 @@ returnLyrics <- function(HTMLObject) {
   # Removes html tags from data and cleans.
   lyrics <- gsub("<div class=\"lyricbox\">", "", lyrics)
   lyrics <- gsub("<br>", "\n", lyrics)
+  lyrics <- gsub("<i>", "", lyrics)
   lyrics <- gsub("<div class=\"lyricsbreak\"></div>", "", lyrics)
   lyrics <- gsub("</div>", "", lyrics)
+  lyrics <- gsub("<b>", "", lyrics)
+  lyrics <- gsub("</b>", "", lyrics)
   return(lyrics)
 }
 
@@ -50,7 +53,6 @@ readUrl <- function(url) {
   out <- tryCatch(
     {
       webpage <- read_html(url)
-      close(webpage)
     },
     error=function(cond) {
       returnStatement <- "Error in band or song"
@@ -61,8 +63,6 @@ readUrl <- function(url) {
       return(returnStatement)
     },
     finally={
-      message(paste("Processed URL:", url))
-      message("--------------------")
     }
   )
   return(out)
@@ -82,26 +82,26 @@ scrapeSearch <- function(band, song) {
   
   # Scrape webpage data ----------------------
   webpage <- readUrl(url)
+
   # -----------------------------------------
-  
   if(webpage == "Error in band or song") {
     return("Error in band or song")
   }
   # have a valid search HTML in webpage
   # Now check if contains no-result class
   noResult <- html_node(webpage, ".no-result")
-  
   # if there is no result then return
   if(class(noResult) != "xml_missing") {
     return("Error in band or song")
   }
-  message("Yo wassup")
+  
   # if result get the top result and check if it is a song
   result <- html_node(webpage, ".result")
   # if page contains 'This song is by' then it is a song
-  if(grep("This song is by", result) == 0) {
-    return("Error in band or song")
-  }
+  #if(grep("\" This song is by \"", result) == 0) {
+  #  return("Error in band or song")
+  #}
+  
   # we have a valid song now capture the url and pass to readUrl
   link <- webpage %>% html_node(".result") %>% html_node("a") %>% html_attr("href")
   return(readUrl(link))
