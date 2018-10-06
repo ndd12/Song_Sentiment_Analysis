@@ -1,18 +1,26 @@
 from __future__ import print_function
 from nltk.stem.snowball import SnowballStemmer
 from nltk.corpus import stopwords
-from nltk.sentiment import SentimentAnalyzer
+from nltk.tokenize import word_tokenize
+
+
 
 
 import re
-
 sw = set(stopwords.words('english'))
 
-def wordList(str):
-    #str = str.translate(None, ',.!?;')
-    str = re.sub('[^A-Za-z \n]+', '', str)
-    str = re.split('\n| ', str)
-    return str
+def process(f):
+    lines = open(f).readlines()
+    tokenized_docs = []
+    for line in lines:
+        line = re.sub('[^A-Za-z ]', '', line).lower()
+        t = word_tokenize(line)
+        for word in t:
+            if word not in stopwords.words('english'):
+                tokenized_docs.append(t)
+
+    print(tokenized_docs)
+
 
 def removeStopWords(wordList):
     v = []
@@ -35,16 +43,10 @@ def processLyricString(str):
         stemmedwl.append(s.encode("latin-1"))
     return stemmedwl
 
-def vectorize(lyricsList):
-
-    for lyrics in lyricsList:
-        for word in lyrics:
 
 
-lyrics = "this is an example\nsong, lyric.\nthis is another, line of a song. not good"
-print(lyrics)
-
-print(processLyricString(lyrics))
+file = 'trainingData/sad_lyrics.txt'
+print(process(file))
 
 
 
