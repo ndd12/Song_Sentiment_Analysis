@@ -4,14 +4,12 @@ from nltk.tokenize import word_tokenize
 import re
 from sklearn.feature_extraction.text import CountVectorizer
 
-<<<<<<< HEAD
 def TEST(F):
   return "Hello World!!!!!"
   
 def process(f):
-=======
+  
 def process(happy, sad):
->>>>>>> ae25ade35ef9d3f750a9d570f51044c454c51bc8
     stemmer = SnowballStemmer("english")
     stop_words = set(stopwords.words('english'))
 
