@@ -1,4 +1,4 @@
-from predict import predict
+from classifier/predict import predict
 
 def PredictRInterface(lyrics):
     lyrics = str(lyrics)
