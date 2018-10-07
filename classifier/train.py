@@ -1,5 +1,5 @@
 from sklearn.linear_model import LogisticRegression
-from preprocessLyrics import process
+from processLyrics import process
 from sklearn.externals import joblib
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.pipeline import Pipeline

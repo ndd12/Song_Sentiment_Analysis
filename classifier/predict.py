@@ -1,5 +1,5 @@
 from sklearn.externals import joblib
-from preprocessLyrics import process
+from processLyrics import process
 
 classifier = joblib.load('pipeline.joblib')
 
