@@ -1,9 +1,7 @@
 library(shiny)
 library(reticulate)
 source("webScrape/webScrape.R")
-source_python("app/Python_Test.py")
-py_available()
-
+source_python("classifier/test.py")
 
 ui <- fluidPage(
   titlePanel("Song Sentiment Analysis"),
@@ -32,15 +30,15 @@ ui <- fluidPage(
 
 server <- function(input,output){
   output$selected_var_3 <- renderText({
-    string1 <- scrapeLyrics(input$band,input$song)
-    paste(scrapeLyrics(input$band,input$song))
+    string1 <- (scrapeLyrics(input$band,input$song))
+    paste(test(scrapeLyrics(input$band,input$song)))
   })
   output$distPlot <- renderPlot({
     data <- c(input$happiness , 10-(input$happiness))
     barplot(data, 
             col=c("yellow","blue"),
             xlab = "Emotion", names = c("Happiness", "Sadness"),
-            xlim = 5
+            horiz = TRUE
             )
   })
 }
