@@ -30,7 +30,6 @@ ui <- fluidPage(
 
 server <- function(input,output){
   output$selected_var_3 <- renderText({
-    string1 <- (scrapeLyrics(input$band,input$song))
     paste(test(scrapeLyrics(input$band,input$song)))
   })
   output$distPlot <- renderPlot({
