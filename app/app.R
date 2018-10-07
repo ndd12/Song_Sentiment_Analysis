@@ -1,14 +1,10 @@
 library(shiny)
 library(reticulate)
-import("nltk")
-source("webScrape/webScrape.R")
-use_python("C:\ Python37")
-source_python("classifier/preprocessLyrics.py")
-
+use_python("C:\ Users\ dougl\ AppData\ Roaming\ Microsoft\ Windows\ Start Menu\ Programs\ Python 3.7",required=TRUE)
+source_python("webScrape/webScrape.py")
 
 ui <- fluidPage(
   titlePanel("Song Sentiment Analysis"),
-  
   sidebarLayout(
     sidebarPanel(
       helpText("Let Us Help You Find Your New Favorite Song"),
@@ -22,7 +18,10 @@ ui <- fluidPage(
                   label = "Happiness",
                   min=0, max=10, value=5
                   ),
-      submitButton(text= "Generate Info")
+      actionButton(
+        inputId = "submit_loc",
+        label = "Submit"
+      )
     ),
     mainPanel(
       textOutput('selected_var_3'),
@@ -32,8 +31,11 @@ ui <- fluidPage(
 )
 
 server <- function(input,output){
-  output$selected_var_3 <- renderText({
-    paste(process((scrapeLyrics(input$band,input$song))))
+  observeEvent(
+    eventExpr = input[["submit_loc"]],
+    handlerExpr = {
+       output$selected_var_3 <- renderText({
+    paste(scrapeLyrics(input$band,input$song))
   })
   output$distPlot <- renderPlot({
     data <- c(input$happiness , 10-(input$happiness))
@@ -42,7 +44,10 @@ server <- function(input,output){
             xlab = "Emotion", names = c("Happiness", "Sadness"),
             horiz = TRUE
             )
-  })
+  }) 
+    }
+  )
+
 }
 string1 <- scrapeLyrics(input$band,input$song)
 strsplit(string1," ")[[1]]
