@@ -1,4 +1,6 @@
 source("webScrape/webScrape.R")
+require(rPython)
+library(reticulate)
 
 fileAsList <- function(iFile) {
   conn <- file(iFile,open="r")
@@ -15,4 +17,10 @@ fileAsList <- function(iFile) {
   }
   close(conn)
   return(l)
+}
+
+test <- function() {
+  python.load("./test.py")
+  x <- python.call("requestAuth")
+  x
 }
