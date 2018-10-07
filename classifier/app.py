@@ -18,9 +18,15 @@ def result():
       Artist = result['Artist']
       Song = result['Song']
       lyrics = scrapeLyrics(Artist, Song)
-      p = predict(lyrics)
+      p = predict(lyrics)[0]
+      happy = False
+      sad = False
+      if p=='sad':
+          sad = True
+      else:
+          happy = True
 
-      return render_template("base.html", result = p)
+      return render_template("base.html", result = p, lyrics = lyrics, happy = happy, sad = sad)
 
 if __name__ == '__main__':
     app.run(debug=True)

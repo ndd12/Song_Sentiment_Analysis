@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Flask app</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1 class="logo">Moody Tunes</h1>
+      </div>
+    </header>
+    <div class="container">
+        <form action = "http://localhost:5000/result" method = "POST">
+          <p>Artist <input type = "text" name = "Artist" /></p>
+          <p>Song <input type = "text" name = "Song" /></p>
+          <p><input type = "submit" value = "submit" /></p>
+        </form>
+		{% if happy %}
+			{% if result %}
+			<p id="result-happy" style="color:green;">This song is happy!</p>
+			{% endif %}
+		{% endif %}
+		{% if sad %}
+			{% if result %}
+			<p id="result-sad" style="color:blue;">This song is sad :(</p>
+			{% endif %}
+		{% endif %}
+		
+		{% if lyrics %}
+			<p>{{lyrics}}</p>
+		{% endif %}
+    </div>
+  </body>
+</html>

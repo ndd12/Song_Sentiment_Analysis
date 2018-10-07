@@ -18,7 +18,7 @@ processed_allSongsLyrics = process(allSongsLyrics)
 vectorizer = CountVectorizer(max_features=1250)
 X = vectorizer.fit_transform(processed_allSongsLyrics).toarray()
 
-X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.15)
+X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.01)
 
 classifier = GaussianNB()
 classifier.fit(X_train, y_train)
