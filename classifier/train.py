@@ -1,5 +1,12 @@
 from sklearn.linear_model import LogisticRegression
+from processLyrics import process
+from sklearn.externals import joblib
 
-def train(happy, sad):
-    logisticRegr = LogisticRegression()
-    logisticRegr.fit(x_train, y_train)
+happyFile = 'trainingData/happy_lyrics.txt'
+sadFile = 'trainingData/sad_lyrics.txt'
+X,Y = process(happyFile, sadFile)
+
+logisticRegr = LogisticRegression()
+logisticRegr.fit(X, Y)
+
+joblib.dump(logisticRegr, "model.joblib")
