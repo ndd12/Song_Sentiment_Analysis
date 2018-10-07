@@ -57,9 +57,7 @@ root_callback <- function(input, output, session) {
 }
 
 spotify_callback <- function(input, output, session) {
-  print(input)
-  print(output)
-  print(session)
+  #yeet
 }
 
 # Creates router. We provide routing path, a UI as
