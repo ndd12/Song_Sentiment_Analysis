@@ -1,7 +1,8 @@
+install.packages("shiny")
 library(shiny)
 library(reticulate)
 source("webScrape/webScrape.R")
-source_python("lyricProccessing/processLyrics.py")
+source_python("app/Python_Test.py")
 py_available()
 
 
@@ -21,9 +22,6 @@ ui <- fluidPage(
                   label = "Happiness",
                   min=0, max=10, value=5
                   ),
-      sliderInput("sadness",
-                  label = "Sadness",
-                  min=0, max=10, value=5),
       submitButton(text= "Generate Info")
     ),
     mainPanel(
@@ -32,15 +30,17 @@ ui <- fluidPage(
     )
   )
 )
-#Define server logic to plot various variables against mpg
 
 server <- function(input,output){
   output$selected_var_3 <- renderText({
     paste(scrapeLyrics(input$band,input$song))
   })
   output$distPlot <- renderPlot({
-    data <- c(input$happiness , input$sadness)
-    barplot(data, xlab="Happiness")
+    data <- c(input$happiness , 10-(input$happiness))
+    barplot(data, 
+            col=c("yellow","blue"),
+            xlab = "Emotion", names = c("Happiness", "Sadness")
+            )
   })
 }
 scrapeLyrics(input$band,input$song)
