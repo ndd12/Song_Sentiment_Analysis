@@ -6,8 +6,7 @@ classifier = joblib.load('classifier.pk1')
 
 # input raw lyrics string
 def predict(lyrics):
-    lyrics1=str(lyrics)
-    processedLyrics = process([lyrics1])
+    processedLyrics = process([lyrics])
     vector = vectorizer.transform(processedLyrics)
     return classifier.predict(vector)
 
