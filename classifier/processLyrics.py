@@ -4,7 +4,8 @@ from nltk.tokenize import word_tokenize
 import re
 # http://spotlistr.herokuapp.com/#/export/spotify-playlist
 
-#takes a list of list of strings, where each string is the entire lyrics of a song
+# takes a list of list of strings, where each string is the entire lyrics of a song
+# returns a list of list of strings, where the lyric strings have been cleaned, stemmed, and have stop words removed
 def process(allSongsLyrics):
 
     stemmer = SnowballStemmer("english")
