@@ -45,6 +45,7 @@ returnLyrics <- function(HTMLObject) {
   lyrics <- gsub("</div>", "", lyrics)
   lyrics <- gsub("<b>", "", lyrics)
   lyrics <- gsub("</b>", "", lyrics)
+  lyrics <- gsub("</i>", "", lyrics)
   return(lyrics)
 }
 
@@ -96,11 +97,11 @@ scrapeSearch <- function(band, song) {
   }
   
   # if result get the top result and check if it is a song
-  result <- html_node(webpage, ".result")
-  # if page contains 'This song is by' then it is a song
-  #if(grep("\" This song is by \"", result) == 0) {
-  #  return("Error in band or song")
-  #}
+  result <- html_node(webpage, ".result") %>% html_node("article")
+  # if page contains 'This song is' then it is a song
+  if(grep("This song is", html_text(result)) == 0) {
+    return("Error in band or song")
+  }
   
   # we have a valid song now capture the url and pass to readUrl
   link <- webpage %>% html_node(".result") %>% html_node("a") %>% html_attr("href")
