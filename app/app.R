@@ -1,7 +1,7 @@
 library(shiny)
 library(reticulate)
-use_python("C:\ Users\ dougl\ AppData\ Roaming\ Microsoft\ Windows\ Start Menu\ Programs\ Python 3.7",required=TRUE)
-source_python("webScrape/webScrape.py")
+use_python("C:/Users/Josh/AppData/Local/Programs/Python/Python37/python.exe",required=TRUE)
+source_python("../webScrape/webScrape2.py")
 
 ui <- fluidPage(
   titlePanel("Song Sentiment Analysis"),
@@ -49,6 +49,5 @@ server <- function(input,output){
   )
 
 }
-string1 <- scrapeLyrics(input$band,input$song)
-strsplit(string1," ")[[1]]
+
 shinyApp(ui,server)
