@@ -15,12 +15,12 @@ Y = ["happy"] * len(happySongsLyrics) + ["sad"] * len(sadSongsLyrics)
 allSongsLyrics = happySongsLyrics + sadSongsLyrics
 processed_allSongsLyrics = process(allSongsLyrics)
 
-vectorizer = CountVectorizer(max_features=1000)
+vectorizer = CountVectorizer(max_features=750)
 X = vectorizer.fit_transform(processed_allSongsLyrics).toarray()
 
 X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.2)
 
-classifier = GaussianNB()
+classifier = GaussianNB(var_smoothing=1e-09)
 classifier.fit(X_train, y_train)
 
 predictions = classifier.predict(X_test)
