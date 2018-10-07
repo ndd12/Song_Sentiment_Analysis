@@ -1,7 +1,10 @@
 library(shiny)
 library(reticulate)
+import("nltk")
 source("webScrape/webScrape.R")
-source_python("classifier/test.py")
+use_python("C:\ Python37")
+source_python("classifier/preprocessLyrics.py")
+
 
 ui <- fluidPage(
   titlePanel("Song Sentiment Analysis"),
@@ -30,7 +33,7 @@ ui <- fluidPage(
 
 server <- function(input,output){
   output$selected_var_3 <- renderText({
-    paste(test(scrapeLyrics(input$band,input$song)))
+    paste(process((scrapeLyrics(input$band,input$song))))
   })
   output$distPlot <- renderPlot({
     data <- c(input$happiness , 10-(input$happiness))
