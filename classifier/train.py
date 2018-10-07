@@ -14,12 +14,11 @@ Y = ["happy"] * len(happySongsLyrics) + ["sad"] * len(sadSongsLyrics)
 allSongsLyrics = happySongsLyrics + sadSongsLyrics
 processed_allSongsLyrics = process(allSongsLyrics)
 
-matrix = CountVectorizer(max_features=1000)
-X = matrix.fit_transform(processed_allSongsLyrics).toarray()
+vectorizer = CountVectorizer(max_features=1000)
+X = vectorizer.fit_transform(processed_allSongsLyrics).toarray()
 
-logisticRegr = LogisticRegression()
-logisticRegr.fit(X, Y)
+classifier = LogisticRegression()
+classifier.fit(X, Y)
 
-pipeline = Pipeline([('vectorizer', matrix), ('model', logisticRegr)])
-
-joblib.dump(pipeline, "pipeline.joblib")
+joblib.dump(vectorizer, 'vectorizer.pk1')
+joblib.dump(classifier, 'classifier.pk1')
