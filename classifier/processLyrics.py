@@ -4,6 +4,9 @@ from nltk.tokenize import word_tokenize
 import re
 from sklearn.feature_extraction.text import CountVectorizer
 
+def TEST(F):
+  return "Hello World!!!!!"
+  
 def process(f):
     stemmer = SnowballStemmer("english")
     stop_words = set(stopwords.words('english'))

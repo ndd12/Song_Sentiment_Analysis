@@ -1,4 +1,3 @@
-install.packages("shiny")
 library(shiny)
 library(reticulate)
 source("webScrape/webScrape.R")
@@ -33,15 +32,18 @@ ui <- fluidPage(
 
 server <- function(input,output){
   output$selected_var_3 <- renderText({
+    string1 <- scrapeLyrics(input$band,input$song)
     paste(scrapeLyrics(input$band,input$song))
   })
   output$distPlot <- renderPlot({
     data <- c(input$happiness , 10-(input$happiness))
     barplot(data, 
             col=c("yellow","blue"),
-            xlab = "Emotion", names = c("Happiness", "Sadness")
+            xlab = "Emotion", names = c("Happiness", "Sadness"),
+            xlim = 5
             )
   })
 }
-scrapeLyrics(input$band,input$song)
+string1 <- scrapeLyrics(input$band,input$song)
+strsplit(string1," ")[[1]]
 shinyApp(ui,server)
