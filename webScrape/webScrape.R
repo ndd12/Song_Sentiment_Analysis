@@ -8,10 +8,6 @@ scrapeLyrics <- function(band, song) {
   bandSub <- gsub(" ", "_", band)
   # Replaces spaces in song name with _
   songSub <- gsub(" ", "_", song)
-  # Replaces ' with %27
-  subSub <- gsub("'", "%27", song)
-  # Replaces ' with %27
-  subSub <- gsub("'", "%27", band)
   
   # Inputs scraping url
   url <- paste("http://lyrics.wikia.com/wiki/",bandSub, sep="")
@@ -79,10 +75,6 @@ scrapeSearch <- function(band, song) {
   bandSub <- gsub(" ", "+", band)
   # Replaces spaces in song name with +
   songSub <- gsub(" ", "+", song)
-  # Replaces ' with %27
-  subSub <- gsub("'", "%27", song)
-  # Replaces ' with %27
-  subSub <- gsub("'", "%27", band)
   
   url <- paste("http://lyrics.wikia.com/wiki/Special:Search?search=",bandSub, sep="")
   url <- paste(url, "%3A", sep="")
