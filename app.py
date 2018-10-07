@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 import sys
 import os
 from webScrape.webScrape2 import scrapeLyrics
+from classifier.predict import predict
 
 app = Flask(__name__)
 
@@ -17,8 +18,9 @@ def result():
       Artist = result['Artist']
       Song = result['Song']
       lyrics = scrapeLyrics(Artist, Song)
+      p = predict(lyrics)
 
-      return render_template("base.html", result = lyrics)
+      return render_template("base.html", result = p)
 
 if __name__ == '__main__':
     app.run(debug=True)
